@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 
+
 @DisplayName("Day1 Hello Test")
 public class HelloTest {
 
@@ -48,6 +49,8 @@ public class HelloTest {
         System.out.println("test 2 is running");
         assertEquals(12, 4*3);
     }
+
+
 
 //commit
     //test

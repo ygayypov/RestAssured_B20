@@ -55,6 +55,8 @@ public class RestAssuredIntro {
         System.out.println("Content - Type from getContentType is : " + response.getContentType());
         System.out.println("Content - Type from contentType is : " + response.contentType());
 
+        //assertThat Content - Type is text/plain;charset=UTF-8
+        assertThat(response.contentType(), is ("text/plain;charset=UTF-8"));
 
 
 
