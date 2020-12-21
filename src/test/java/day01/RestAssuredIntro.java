@@ -44,8 +44,18 @@ public class RestAssuredIntro {
 
         //how to pretty print entire response body(payload)
         // prettyPrint() -- print and return body(payload) as String
-        String bodyAsStr = response.prettyPrint(); // Hello from Sparta
+        String payload = response.prettyPrint(); // Hello from Sparta
         //assertThat the body is Hello from Spartan
+
+        assertThat(payload, is("Hello from Sparta"));
+
+        //There are always multiple way to same thing in RestAssured
+        //get the header called ContentType from the response
+        System.out.println("Content - Type from getHeader is : " + response.getHeader("Content-Type"));
+        System.out.println("Content - Type from getContentType is : " + response.getContentType());
+        System.out.println("Content - Type from contentType is : " + response.contentType());
+
+
 
 
     }
