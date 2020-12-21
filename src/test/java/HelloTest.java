@@ -3,10 +3,13 @@ import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+
+@DisplayName("Day1 Hello Test")
 public class HelloTest {
 
     //Junit5 Annotations
     //@BeforeAll @AfterAll @BeforeEach @AfterEach
+    //@DisplayName @Disabled
 
     @BeforeAll
     public static void setUp(){
@@ -28,12 +31,14 @@ public class HelloTest {
         System.out.println("@AfterEach is running");
     }
 
+    @DisplayName("Test 1 + 3 = 4")
     @Test
     public void test1(){
         System.out.println("test 1 is running");
         Assertions.assertEquals(4, 1+3);
     }
 
+    @DisplayName("Test 3 * 4 = 12")
     @Test
     public void test2(){
         //assert 4*3 = 12
