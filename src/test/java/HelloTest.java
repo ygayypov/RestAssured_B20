@@ -38,6 +38,7 @@ public class HelloTest {
         Assertions.assertEquals(4, 1+3);
     }
 
+    @Disabled // disabled the test below. Ignored the test
     @DisplayName("Test 3 * 4 = 12")
     @Test
     public void test2(){
