@@ -1,5 +1,6 @@
 package day01;
 
+import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -57,6 +58,19 @@ public class RestAssuredIntro {
 
         //assertThat Content - Type is text/plain;charset=UTF-8
         assertThat(response.contentType(), is ("text/plain;charset=UTF-8"));
+
+        //assertThat Content - Type startWith text
+        assertThat(response.contentType(), startsWith("text"));
+
+        //Easy way to work with Content - Type without typing much
+        //we can use ContentType Enum from RestAssured to easily get main part content-type
+        //ContentType.TEXT -->> text/plain as Enum
+        //startWith accept a String object
+        //so use toString method to turn ContentType.TEXT toString so we can use it with startWith
+        assertThat(response.contentType(), startsWith (ContentType.TEXT.toString()));
+        assertThat(response.contentType(), is (not(ContentType.JSON)));
+
+
 
 
 
