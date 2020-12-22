@@ -36,7 +36,8 @@ public class SpartanTest {
     @AfterAll
     public static void tearDown (){
         //resetting the value of baseURI, basePath to original value
-        RestAssured.reset();
+        //RestAssured.reset();
+        reset();
     }
 
 
