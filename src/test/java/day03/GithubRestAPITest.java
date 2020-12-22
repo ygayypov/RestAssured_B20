@@ -25,7 +25,10 @@ public class GithubRestAPITest {
                 .get("https://api.github.com/users/{username}").
         then()
                 .assertThat()
-                .statusCode(is(200));
+                .statusCode(is(200))
+                .contentType(ContentType.JSON)
+                .header("server", "GitHub.com")
+                .body("login", is("CybertekSchool"));
     }
 
 
