@@ -3,6 +3,7 @@ package day02;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,14 +19,26 @@ public class SpartanTest {
     @BeforeAll
     public static void setUp(){
 
-        RestAssured.baseURI = "http://3.86.188.174:8000";
-        RestAssured.basePath = "/api";
+        //baseURI and basePath are static fields of RestAssured Class
+        //Since we use Static imported RestAssured, we can access all static fields directly just like it's in our own class here
+        //you can use static way as below
+        //RestAssured.baseURI = "http://3.86.188.174:8000";
+        //or you can directly use as below
+        baseURI = "http://3.86.188.174:8000";
+        //RestAssured.basePath = "/api";
+        basePath = "/api";
         //baseURI + basePath + whatever you provided in http method like get post
         //for example :
         // get("/spartans") -->> get(baseURI + "/spartans"
 
-
     }
+
+    @AfterAll
+    public static void tearDown (){
+        //resetting the value of baseURI, basePath to original value
+        RestAssured.reset();
+    }
+
 
     @DisplayName("Testing / api/spartans endpoint")
     @Test
