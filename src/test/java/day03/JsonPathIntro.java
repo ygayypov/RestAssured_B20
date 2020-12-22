@@ -4,6 +4,9 @@ import io.restassured.path.json.JsonPath;
 import org.junit.jupiter.api.*;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+
+import java.util.List;
+
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
 
@@ -54,6 +57,34 @@ public class JsonPathIntro {
         System.out.println("myGender = " + myGender);
         System.out.println("myPhone = " + myPhone);
 
+    }
+
+    @DisplayName("Extracting data from Json Array REsponse ")
+    @Test
+    public void getAllSpartansExtractData(){
+        /*
+         //Response response = get("/spartans");
+        //JsonPath jp = response.jsonPath();
+        // you can do in one line what written above, you can find below
+         */
+        JsonPath jp = get("/spartans").jsonPath();
+
+        // get the first json object name field and phone field
+        System.out.println("jp.getString(\"name[0]\") = " + jp.getString("name[0]"));
+        System.out.println("jp.getLong(\"phone[0]\") = " + jp.getLong("phone[0]"));
+
+        // get the 7th json object gender field from json array
+        System.out.println("jp.getString(\"gender[6]\") = " + jp.getString("gender[6]"));
+
+        //getting all the name fields from the jsonArray Response
+        //and storing as a list
+        List<String> allNames = jp.getList("name");
+        System.out.println("allNames = " + allNames);
+
+        //getting all the phone fields from the jsonArray Response
+        //and storing as a list
+        List<Long> allPhones = jp.getList("phone");
+        System.out.println("allPhones = " + allPhones);
 
     }
 
