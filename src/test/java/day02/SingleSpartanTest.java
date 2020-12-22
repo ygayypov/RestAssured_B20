@@ -17,7 +17,7 @@ public class SingleSpartanTest {
 
     @BeforeAll
     public static void setUp(){
-        baseURI = "http://3.86.188.174:8000";
+        baseURI = "http://blabla";
         basePath = "/api" ;
 
     }
