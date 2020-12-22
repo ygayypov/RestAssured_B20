@@ -38,11 +38,59 @@ public class SingleSpartanTest {
         when()
                 .get("/spartans/267").
         then()
-                .statusCode(is (200));
+                .statusCode(is (200))
+                .contentType(ContentType.JSON) ;
 
+        //I want to make it obvious for the value 100 is path variable/ params to uniquely identify the resource
+        //this will be whole Request URL on this test
+        // http://3.86.188.174:8000/api/spartans/267
+        given()
+                .accept(ContentType.JSON)
+                .pathParam("id", 267).
+        when()
+                .get("spartans/{id}").
+        then()
+                .assertThat()
+                .statusCode(is(200))
+                .contentType(ContentType.JSON);
+
+        //this is the easiest one, same result
+        given()
+                .accept(ContentType.JSON).
+        when()
+                .get("/spartans/{id}", 267).
+        then()
+                .assertThat()
+                .statusCode(is (200))
+                .contentType(ContentType.JSON) ;
 
     }
 
+    @DisplayName("Testing GET /spartans/{id} endpoint Payload")
+    @Test
+    public void test1SpartanPayload(){
+        /**
+         * {
+         *   "id": 267,
+         *   "name": "Ansel",
+         *   "gender": "Female",
+         *   "phone": 1608180090
+         * }
+         */
+
+        given()
+                .accept(ContentType.JSON).
+        when()
+                .get("/spartans/{id}", 267).
+        then()
+                .assertThat()
+                .statusCode(is (200))
+                .contentType(ContentType.JSON)
+                .body("id",is(267) )
+                .body("name", equalTo("Ansel"))
+                .body("gender", is(equalTo("Female")))
+                .body("phone", equalTo(1608180090));
+    }
 
 
 

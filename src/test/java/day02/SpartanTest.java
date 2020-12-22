@@ -111,12 +111,5 @@ public class SpartanTest {
                 .and()
                 .contentType(ContentType.XML);
 
-
-
-
-
-
-
-
     }
 }
