@@ -20,7 +20,7 @@ public class GithubRestAPITest {
     public void testGitHub(){
 
         given()
-                .pathParam("username", "ygayypov").
+                .pathParam("username", "CybertekSchool").
         when()
                 .get("https://api.github.com/users/{username}").
         then()
