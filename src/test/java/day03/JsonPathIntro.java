@@ -1,5 +1,6 @@
 package day03;
 
+import groovy.json.JsonOutput;
 import io.restassured.path.json.JsonPath;
 import org.junit.jupiter.api.*;
 import io.restassured.http.ContentType;
@@ -51,6 +52,7 @@ public class JsonPathIntro {
         String myGender = jp.getString("gender");
         long myPhone = jp.getLong("phone");
 
+        System.out.println();
         System.out.println("===========================================================");
         System.out.println("myId = " + myId);
         System.out.println("myName = " + myName);
@@ -85,6 +87,35 @@ public class JsonPathIntro {
         //and storing as a list
         List<Long> allPhones = jp.getList("phone");
         System.out.println("allPhones = " + allPhones);
+
+    }
+
+    //send request to this request url
+    //http://3.86.188.174:8000/api/spartans/search?nameContains=de&gender=Male
+    //get the name of first guy in the result
+    //get the phone of the 2nd guy in the result
+    //get all names, all phones save them as list
+    //save the value of field called empty under pageable in the response
+    @DisplayName("Testing / spartans/search and extracting data ")
+    @Test
+    public void testSearch(){
+    JsonPath jp =   given()
+                            .queryParam("nameContains", "de")
+                            .queryParam("gender", "Male").
+                    when()
+                            .get("/spartans/search").
+                            jsonPath();
+
+        System.out.println();
+        System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+        System.out.println("First guy's name : " + jp.getString("content[0].name"));
+        System.out.println("Second guy's phone : " + jp.getLong("content[1].phone"));
+
+
+        System.out.println("allNames = " + jp.getList("content.name"));
+        System.out.println("allPhones = " + jp.getList("content.phone"));
+
+        System.out.println("Value of the field empty : " + jp.getBoolean("pageable.sort.empty"));
 
     }
 
