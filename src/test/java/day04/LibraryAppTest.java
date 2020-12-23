@@ -28,4 +28,33 @@ public class LibraryAppTest {
         reset();
     }
 
+
+    @DisplayName("Testing POST /login Endpoint")
+    @Test
+    public void testLogin(){
+        /*
+        Librarian1   username(email)   librarian69@library
+        Librarian1   password          KNPXrm3S
+         */
+
+        given()
+                .log().all()
+                .contentType(ContentType.URLENC)
+                .formParam("email", "librarian69@library")
+                .formParam("password", "KNPXrm3S").
+        when()
+                .post("/login").
+        then()
+                .log().all()
+                .assertThat()
+                .statusCode(is(200))
+                .contentType(ContentType.JSON)
+                .body("token" , is(not(emptyString())))
+                .body("redirect_uri", not(emptyString()))
+                ;
+
+
+
+    }
+
 }
