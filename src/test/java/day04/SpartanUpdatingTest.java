@@ -17,7 +17,7 @@ public class SpartanUpdatingTest {
 
     @BeforeAll
     public static void setUp(){
-        baseURI = "blabla";
+        baseURI = "http://blabla";
         basePath = "/api" ;
 
     }
@@ -67,11 +67,30 @@ public class SpartanUpdatingTest {
         given()
                 .auth().basic("admin","admin")
                 .log().all()
-                .contentType(ContentType.JSON)
                 .pathParam("id",637)
+                .contentType(ContentType.JSON)
                 .body(patchBody).
         when()
                 .patch("/spartans/{id}").
+        then()
+                .log().all()
+                .assertThat()
+                .statusCode(is(204))
+                //body for 204 response is always empty
+                //we can validate it using emptyString() matcher
+                .body(emptyString());
+
+    }
+
+    @DisplayName("Testing DELETE /api/spartans/{id}")
+    @Test
+    public void testDeleteSingleSpartan(){
+
+        given()
+                .auth().basic("admin", "admin")
+                .pathParam("id", 586).
+        when()
+                .delete("/spartans/{id}").
         then()
                 .log().all()
                 .assertThat()
