@@ -6,13 +6,17 @@ import org.junit.jupiter.api.*;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import static io.restassured.RestAssured.*;
+import static org.hamcrest.Matchers.*;
 
 public class SpartanAddingUpdatingTest {
 
     @BeforeAll
     public static void setUp(){
-        baseURI = "blabla";
+        baseURI = "http://blabla";
         basePath = "/api" ;
 
     }
@@ -33,7 +37,7 @@ public class SpartanAddingUpdatingTest {
                 .get("/spartans").
         then()
                 .log().all()
-                .statusCode(200);
+                .statusCode(is (200));
     }
 
     @DisplayName("Add 1 Data with Raw Json String POST / api/ spartans")
@@ -65,7 +69,42 @@ public class SpartanAddingUpdatingTest {
                 .post("/spartans").
         then()
                 .log().all()
-                .statusCode(201) ;
+                .assertThat()
+                .statusCode(is(201))
+                .contentType(ContentType.JSON)
+                .body("success", is("A Spartan is Born!"))
+                .body("data.name", is("Roma"))
+                .body("data.gender", is("Male"))
+                .body("data.phone", is(1234567890));
+    }
+
+
+    @DisplayName("Add 1 Data with Map Object POST / api/ spartans")
+    @Test
+    public void testAddOneDataWithMapAsBody(){
+
+        Map<String, Object> payloadMap = new LinkedHashMap<>();
+        payloadMap.put("name", "Sergio");
+        payloadMap.put("gender", "Male");
+        payloadMap.put("phone", 6578946253L);
+        System.out.println("payloadMap = " + payloadMap);
+
+        given()
+                .auth().basic("admin", "admin")
+                .log().all()
+                .contentType(ContentType.JSON)
+                .body(payloadMap).
+        when()
+                .post("/spartans").
+        then()
+                .log().all()
+                .statusCode(is(201))
+                .contentType(ContentType.JSON)
+                .body("success", is("A Spartan is Born!"))
+                .body("data.name", is("Sergio"))
+                .body("data.gender", is("Male"))
+                .body("data.phone", is(6578946253L));
+
     }
 
 }
