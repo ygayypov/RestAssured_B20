@@ -6,17 +6,18 @@ import org.junit.jupiter.api.*;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 
+import java.io.File;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
 
-public class SpartanAddingUpdatingTest {
+public class SpartanAddingTest {
 
     @BeforeAll
     public static void setUp(){
-        baseURI = "http://blablaa";
+        baseURI = "http://blabla";
         basePath = "/api" ;
 
     }
@@ -106,5 +107,39 @@ public class SpartanAddingUpdatingTest {
                 .body("data.phone", is(6578946253L));
 
     }
+
+
+    @DisplayName("Add 1 Data with External Json file POST / api/ spartans")
+    @Test
+    public void testAddOneDataWithJsonFileBody(){
+        //create a file called a singleSpartan.json right under root directory
+        //with below content
+        /*
+        {
+        "name": "Marta",
+        "gender": "Female",
+        "phone": 1678365789
+         }
+         add below code to point File Object to this singleSpartan.json
+         */
+
+        File externalJson = new File ("singleSpartan.json");
+        given()
+                .auth().basic("admin", "admin")
+                .log().all()
+                .contentType(ContentType.JSON)
+                .body(externalJson).
+        when()
+                .post("/spartans").
+        then()
+                .log().all()
+                .statusCode(is(201))
+                .contentType(ContentType.JSON)
+                .body("success", is("A Spartan is Born!"))
+                .body("data.name", is("Marta"))
+                .body("data.gender", is("Female"))
+                .body("data.phone", is(1678365789));
+    }
+
 
 }
