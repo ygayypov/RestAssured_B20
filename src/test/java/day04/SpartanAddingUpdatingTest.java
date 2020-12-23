@@ -16,7 +16,7 @@ public class SpartanAddingUpdatingTest {
 
     @BeforeAll
     public static void setUp(){
-        baseURI = "http://blabla";
+        baseURI = "http://blablaa";
         basePath = "/api" ;
 
     }
