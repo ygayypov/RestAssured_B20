@@ -5,6 +5,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import utility.ConfigurationReader;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class AssertingCollectionInTheChain {
 
     @BeforeAll
     public static void setUp(){
-        baseURI = "http://blabla";
+        baseURI = ConfigurationReader.getProperty("spartan.base_url");
         basePath = "/api" ;
 
     }
