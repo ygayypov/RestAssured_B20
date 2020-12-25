@@ -3,6 +3,7 @@ package day06;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.*;
 import io.restassured.http.ContentType;
+import pojo.Spartan;
 import utility.ConfigurationReader;
 import utility.SpartanUtil;
 
@@ -23,7 +24,32 @@ public class PostWithCustomObject {
         reset();
     }
 
+    @DisplayName("Add 1 data with POJO as body")
+    @Test
+    public void testAddDataWithPojo(){
 
+        Spartan sp1 = new Spartan("Bolajan", "Male", 1236548965L);
+        System.out.println(sp1);
+
+        given()
+                .auth().basic( "admin" , "admin")
+                .log().all()
+                .contentType(ContentType.JSON)
+                .body(sp1).
+        when()
+                .post("/spartans").
+        then()
+                .log().all()
+                .assertThat()
+                //.contentType(ContentType.JSON)
+                .statusCode(is (201))
+                .body("success" , is("A Spartan is Born!"))
+                .body("data.name", is (sp1.getName()))
+                .body("data.gender", is (sp1.getGender()))
+                .body("data.phone", is (sp1.getPhone()))
+                ;
+
+    }
 
 
 }
