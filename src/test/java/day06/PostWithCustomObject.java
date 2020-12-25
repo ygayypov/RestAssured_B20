@@ -28,7 +28,8 @@ public class PostWithCustomObject {
     @Test
     public void testAddDataWithPojo(){
 
-        Spartan sp1 = new Spartan("Bolajan", "Male", 1236548965L);
+        //Spartan sp1 = new Spartan("Bolajan", "Male", 1236548965L);
+        Spartan sp1 = SpartanUtil.getRandomSpartanPOJO_Payload();
         System.out.println(sp1);
 
         given()
