@@ -1,4 +1,4 @@
-package day07;
+package pojo;
 
 public class BookCategory {
 
