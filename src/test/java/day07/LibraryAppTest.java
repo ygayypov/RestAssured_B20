@@ -3,7 +3,9 @@ package day07;
 import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
 import org.junit.jupiter.api.*;
+import pojo.BookCategory;
 
+import java.util.List;
 import java.util.Map;
 
 import static io.restassured.RestAssured.*;
@@ -127,6 +129,11 @@ public class LibraryAppTest {
                             .get("/get_book_categories")
                             .prettyPeek()
                             .jsonPath();
+
+
+        List<BookCategory> allCategories = jp.getList("", BookCategory.class);
+        // I use BookCategory.class to make explicitly obvious of my result
+        allCategories.forEach(System.out::println);
 
     }
 
