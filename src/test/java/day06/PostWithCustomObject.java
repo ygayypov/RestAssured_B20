@@ -50,6 +50,8 @@ public class PostWithCustomObject {
                 .body("data.phone", is (sp1.getPhone()))
                 ;
 
+
+
     }
 
 

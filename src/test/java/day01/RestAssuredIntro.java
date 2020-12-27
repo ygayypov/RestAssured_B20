@@ -27,7 +27,7 @@ public class RestAssuredIntro {
 
 
 
-        Response response = get("http://blabla/api/hello");
+        Response response = get("http://100.26.101.158:8000/api/hello");
         //get status code out of this Response object
         System.out.println("status code is : " + response.statusCode());
 

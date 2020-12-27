@@ -15,7 +15,7 @@ public class JsonPathIntro {
 
     @BeforeAll
     public static void setUp(){
-        baseURI = "http://blabla";
+        baseURI = "http://100.26.101.158:8000";
         basePath = "/api" ;
 
     }
@@ -78,6 +78,10 @@ public class JsonPathIntro {
         // get the 7th json object gender field from json array
         System.out.println("jp.getString(\"gender[6]\") = " + jp.getString("gender[6]"));
 
+        // get the last json object name field and phone field
+        System.out.println("jp.getString(\"name[-1]\") = " + jp.getString("name[-1]"));
+        System.out.println("jp.getLong(\"phone[-1]\") = " + jp.getLong("phone[-1]"));
+
         //getting all the name fields from the jsonArray Response
         //and storing as a list
         List<String> allNames = jp.getList("name");
@@ -91,7 +95,7 @@ public class JsonPathIntro {
     }
 
     //send request to this request url
-    //http://3.86.188.174:8000/api/spartans/search?nameContains=de&gender=Male
+    //http:http://100.26.101.158:8000/api/spartans/search?nameContains=de&gender=Male
     //get the name of first guy in the result
     //get the phone of the 2nd guy in the result
     //get all names, all phones save them as list
@@ -103,7 +107,7 @@ public class JsonPathIntro {
                             .queryParam("nameContains", "de")
                             .queryParam("gender", "Male").
                     when()
-                            .get("/spartans/search").
+                            .get("/spartans/search"). //this is where we get response
                             jsonPath();
 
         System.out.println();
@@ -116,6 +120,8 @@ public class JsonPathIntro {
         System.out.println("allPhones = " + jp.getList("content.phone"));
 
         System.out.println("Value of the field empty : " + jp.getBoolean("pageable.sort.empty"));
+
+
 
     }
 

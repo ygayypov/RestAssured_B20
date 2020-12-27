@@ -23,7 +23,7 @@ public class ExtractPractice {
 
     @BeforeAll
     public static void setUp(){
-        baseURI = "http://blabla";
+        baseURI = "http://54.90.101.103:8000";
         basePath = "/api" ;
 
     }

@@ -17,7 +17,7 @@ public class SingleSpartanTest {
 
     @BeforeAll
     public static void setUp(){
-        baseURI = "http://blabla";
+        baseURI = "http://100.26.101.158:8000";
         basePath = "/api" ;
 
     }
@@ -43,7 +43,7 @@ public class SingleSpartanTest {
 
         //I want to make it obvious for the value 100 is path variable/ params to uniquely identify the resource
         //this will be whole Request URL on this test
-        // http://3.86.188.174:8000/api/spartans/267
+        // http://100.26.101.158:8000/api/spartans/267
         given()
                 .accept(ContentType.JSON)
                 .pathParam("id", 267).

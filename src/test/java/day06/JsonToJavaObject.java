@@ -6,9 +6,11 @@ import io.restassured.response.Response;
 import org.junit.jupiter.api.*;
 import io.restassured.http.ContentType;
 import pojo.Spartan;
+import pojo.SpartanRead;
 import utility.ConfigurationReader;
 import utility.SpartanUtil;
 
+import java.util.List;
 import java.util.Map;
 
 import static io.restassured.RestAssured.*;
@@ -28,7 +30,7 @@ public class JsonToJavaObject {//
         reset();
     }
 
-    @DisplayName("Grt 1 data with Save Response Json As Java Object")
+    @DisplayName("Get 1 data and Save Response Json As Java Object")
     @Test
     public void testGetOneSpartanAndSaveResponseJsonAsMap(){
 
@@ -45,6 +47,19 @@ public class JsonToJavaObject {//
         JsonPath jp = response.jsonPath();
         Map<String ,Object> responseMap = jp.getMap("");
         System.out.println("responseMap = " + responseMap);
+
+        //Java to Json ===>>> Serialization
+        //Json to Java ===>>> De-Serialization
+
+
+        SpartanRead sr = jp.getObject("", SpartanRead.class);
+        System.out.println("sr = " + sr);
+
+        //jp.get("jsonPathHere or Empty") will return the type
+        //specified in variable data type , similar to list <Type>
+//        SpartanRead sp2 = jp.get("");
+//        System.out.println("sp2 = " + sp2);
+
 
         /**
          * {
@@ -73,7 +88,33 @@ public class JsonToJavaObject {//
          *
          */
 
+
     }
+
+
+    @DisplayName("Get All data and Save Response JsonArray As Java Object")
+    @Test
+    public void testGetAllSpartanAndSaveResponseJsonAsJavaObject(){
+
+
+        Response response = given()
+                                    .auth().basic("admin", "admin").
+                            when()
+                                    .get(("/spartans"));
+
+        JsonPath jp = response.jsonPath();
+        List<SpartanRead> allSpartansPOJOs = jp.getList("", SpartanRead.class);
+        System.out.println("allSpartansPOJOs = " + allSpartansPOJOs);
+        allSpartansPOJOs.forEach((System.out::println));
+
+
+    }
+
+    //send the request to /api/spartans/search endpoint
+    //save your JsonArray from search result into
+    //List of SpartanRead POJO
+
+
 
 
 }

@@ -16,11 +16,15 @@ import static org.hamcrest.Matchers.*;
 
 public class LibraryAppTest {
 
+    private static String myToken;
+
     @BeforeAll
     @Test
     public static void setUp(){
         baseURI = "http://library1.cybertekschool.com";
         basePath = "/rest/v1";
+
+        //myToken = someUtility.getToke()
     }
 
     @AfterAll
@@ -37,7 +41,7 @@ public class LibraryAppTest {
         Librarian1   password          KNPXrm3S
          */
 
-        String myToken =
+         myToken =
                 given()
                         .log().all()
                         .contentType(ContentType.URLENC)
@@ -66,7 +70,28 @@ public class LibraryAppTest {
         //How to extract some data out of response object after doing validation in then section without
         // breaking the chain -->> use extract() method that return
 
-
     }
 
+    @DisplayName("Testing GET /dashboard_stats Endpoint")
+    @Test
+    public void testzDashboard_stats(){
+        // z before your nameMethod gives an order in testing
+        //you can use it zTestName or testzName
+
+        //this is how we provide header -->> header("headerName", "headerValue")
+        given()
+                .log().all()
+                .header("x-library-token", myToken).
+        when()
+                .get("dashboard_stats")
+        .then()
+                .log().all()
+                .assertThat()
+                .statusCode(is(200))
+                .contentType(ContentType.JSON);
+
+        //create a utility class LibraryUtility
+        //create a static method called getToken(environment, username, password)
+
+    }
 }

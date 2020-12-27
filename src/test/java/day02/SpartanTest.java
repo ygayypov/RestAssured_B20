@@ -22,9 +22,9 @@ public class SpartanTest {
         //baseURI and basePath are static fields of RestAssured Class
         //Since we use Static imported RestAssured, we can access all static fields directly just like it's in our own class here
         //you can use static way as below
-        //RestAssured.baseURI = "http://blabla";
+        //RestAssured.baseURI = "http://100.26.101.158:8000";
         //or you can directly use as below
-        baseURI = "http://blabla";
+        baseURI = "http://100.26.101.158:8000";
         //RestAssured.basePath = "/api";
         basePath = "/api";
         //baseURI + basePath + whatever you provided in http method like get post
@@ -105,7 +105,7 @@ public class SpartanTest {
         given()
                 .accept(ContentType.XML).
         when()
-                .get("http://blabla/api/spartans").
+                .get("http://100.26.101.158:8000/api/spartans").
         then()
                 .statusCode(is(200))
                 .and()

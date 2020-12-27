@@ -17,7 +17,7 @@ public class SpartanUpdatingTest {
 
     @BeforeAll
     public static void setUp(){
-        baseURI = "http://blabla";
+        baseURI = "http://54.90.101.103:8000";
         basePath = "/api" ;
 
     }
@@ -47,7 +47,7 @@ public class SpartanUpdatingTest {
                 .put("/spartans/{id}").
         then()
                 .log().all()
-                .assertThat()
+                .assertThat()       // we use assertThat, for much more readable and intent will clear
                 .statusCode(is(204))
                 //This is how we can check a header exists by checking the value is not null
                 //using notNullValue() matcher
