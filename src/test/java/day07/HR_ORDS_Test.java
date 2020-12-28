@@ -66,6 +66,18 @@ public class HR_ORDS_Test {
         Region r3 = jp.getObject("", Region.class );
         System.out.println("r3 = " + r3);
 
+        Region r4 =response.as(Region.class);
+        System.out.println("r4 = " + r4);
+    }
+
+    @DisplayName("Save GET /regions response as List of POJO")
+    @Test
+    public void testAllRegionsToListOfPOJO(){
+       Response response = get("/regions");
+       JsonPath jp = response.jsonPath();
+
+       List<Region> allRegions = jp.getList("items" , Region.class);
+       allRegions.forEach(System.out::println);
 
     }
 
