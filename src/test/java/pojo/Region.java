@@ -1,5 +1,13 @@
 package pojo;
 
+
+//we want to ignore any extra key that json has
+//other than region_id , region_name
+//anything unknown to this pojo class should be ignored
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Region {
 
     private int region_id ;
