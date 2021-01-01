@@ -6,6 +6,7 @@ import pojo.Country;
 import testbase.HR_ORDS_TestBase;
 import utility.DB_Utility;
 
+import java.util.List;
 import java.util.Map;
 
 import static io.restassured.RestAssured.*;
@@ -23,7 +24,7 @@ public class ORDS_API_DB_PracticeTest extends HR_ORDS_TestBase { //inheritance
         //send request to /countries/{country_id} for AR
         //save the result as Country POJO
 
-        Country arPOJO = given()
+        Country arPOJO = given().log().all()
                 .pathParam("country_id", myCountryID).
         when()
                 .get("/countries/{country_id}").prettyPeek()//<<=== gives jsonPath
@@ -49,7 +50,25 @@ public class ORDS_API_DB_PracticeTest extends HR_ORDS_TestBase { //inheritance
         int expectedRegionId = Integer.parseInt( dbResultMap.get("REGION_ID"));
         assertThat(arPOJO.getRegion_id() , equalTo( expectedRegionId ));
 
+    }
 
+
+    @DisplayName("GET /countries Capture All CountryID and  Compare Result with DB")
+    @Test
+    public void testResponseAllCountryIDMatchDatabaseData(){
+
+        List<String> allCountriesIds = get("/countries").jsonPath().getList("items.country_id");
+        allCountriesIds.forEach(System.out::println);
+
+        List<String> allCountriesNames = get("/countries").jsonPath().getList("items.country_name");
+        allCountriesNames.forEach(System.out::println);
+
+        DB_Utility.runQuery("SELECT * FROM COUNTRIES");
+        List<String> expectedListFromDB = DB_Utility.getColumnDataAsList("COUNTRY_ID");
+        expectedListFromDB.forEach(System.out::println);
+
+        //assert both list has same information
+        assertThat(allCountriesIds , equalTo(expectedListFromDB));
 
     }
 
