@@ -70,6 +70,13 @@ public class TestingOutLombokDependency extends HR_ORDS_TestBase {
   System.out.println("allDepsIdsFiltered = " + allDepsIdsFiltered);
 
 
+  //what if you have more than one conditions for example: department_id betwwen 70 ~ 100
+  List <Integer> deps70to100 = jp.getList("items.department_id.findAll{it >= 70 && it <= 100 }");
+  System.out.println("deps70to100 = " + deps70to100);
+
+  //get the name of the departments if department_id between 70 - 100
+  List<String> allDeps70to100 = jp.getList("items.findAll{it.department_id >= 70 && it.department_id <= 100 }.department_name");
+  System.out.println("allDeps70to100 = " + allDeps70to100);
  }
 
 
