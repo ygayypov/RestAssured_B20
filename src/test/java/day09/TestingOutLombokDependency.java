@@ -1,5 +1,6 @@
 package day09;
 
+import io.restassured.path.json.JsonPath;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pojo.Department;
@@ -43,7 +44,25 @@ public class TestingOutLombokDependency extends HR_ORDS_TestBase {
   allDepsCopy.removeIf(eachDep -> eachDep.getManager_id()==0 );
   allDepsCopy.forEach(System.out::println);
 
+ }
+
+ @DisplayName("Get / departments and filter the result with JsonPath groovy")
+ @Test
+ public void testFilterResultWithGroovy(){
+
+  JsonPath jp = get("/departments").jsonPath();
+  List<Department> allDeps = jp.getList("items.findAll {it.manager_id > 0 }", Department.class);
+  allDeps.forEach(System.out::println);
+  //what if I just want to get List<String> to store DepartmentName
+  List<String> depNames = jp.getList("items.department_name"); //we get everything
+  System.out.println("depNames = " + depNames);
+
+  // -->> items.department_name (all)
+  //-->> items.findAll{it.manager_id > 0 }.department_name (filtered for manager_id more than 0)
+  List<String> depNamesFilter = jp.getList("items.findAll{it.manager_id > 0 }.department_name");
+  System.out.println("depNamesFilter = " + depNamesFilter);
 
  }
+
 
 }
