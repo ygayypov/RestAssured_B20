@@ -73,10 +73,43 @@ public class TestingOutLombokDependency extends HR_ORDS_TestBase {
   //what if you have more than one conditions for example: department_id betwwen 70 ~ 100
   List <Integer> deps70to100 = jp.getList("items.department_id.findAll{it >= 70 && it <= 100 }");
   System.out.println("deps70to100 = " + deps70to100);
+  //deps70to100 = [70, 80, 90, 100]
 
   //get the name of the departments if department_id between 70 - 100
   List<String> allDeps70to100 = jp.getList("items.findAll{it.department_id >= 70 && it.department_id <= 100 }.department_name");
   System.out.println("allDeps70to100 = " + allDeps70to100);
+  //allDeps70to100 = [Public Relations, Sales, Executive, Finance]
+
+  //findAll -->> will return all matching results
+  //find -->> will return first match for the conditions
+  String dep10 = jp.getString("items.find{it.department_id == 10}.department_name");
+  System.out.println("department 10 name = " + dep10);//Administration
+
+  //sum  / min / max / collect
+  //get the sum of the entire department_id
+  int sumOfAllDepsIDs = jp.getInt("items.department_id.sum()");
+  int sumOfAllDepsIDs1 = jp.getInt("items.sum{it.department_id}");
+  System.out.println("sumOfAllDepsIDs = " + sumOfAllDepsIDs);// sumOfAllDepsIDs = 3017
+  System.out.println("sumOfAllDepsIDs1 = " + sumOfAllDepsIDs1);//sumOfAllDepsIDs1 = 3017
+
+  //get the lowest department_id
+  int lowestDepId = jp.getInt("items.department_id.min()");
+  System.out.println("lowestDepId = " + lowestDepId);//lowestDepId = 10
+
+  //get the highest department_id
+  int highestDepId = jp.getInt("items.department_id.max()");
+  System.out.println("highestDepId = " + highestDepId);//highestDepId = 240
+
+  //print number 5 dep_Id
+  System.out.println(jp.getInt("items.department_id[4]"));//40
+
+  //print number last dep_Id
+  System.out.println(jp.getInt("items.department_id[-1]"));//240
+
+  //print from index 7 till index 10 dep_Id
+  System.out.println("index 7-10 dep_Id " + jp.getList("items.department_id[7..10]"));//[70, 80, 90, 100]
+
+
  }
 
 
