@@ -4,6 +4,7 @@ import io.restassured.path.json.JsonPath;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import pojo.ArticlePOJO;
 import pojo.Country;
 import testbase.HR_ORDS_TestBase;
 import utility.DB_Utility;
@@ -30,7 +31,7 @@ public class NewAPI_Homework {
                                 .queryParam("apiKey","d39d53da33db434791d77f7b58658007")
                                 .queryParam("country", "us").
                         when()
-                                .get("/top-headlines").prettyPeek()
+                                .get("/top-headlines")//.prettyPeek()
                                 .jsonPath();
 
         List<String> allAuthorsNoFilter = jp.getList("articles.author");
@@ -45,6 +46,10 @@ public class NewAPI_Homework {
         List<String> allAuthorsWithNoNull = jp.getList("articles.findAll{it.source.id != null && it.author !=null }.author");
         System.out.println("allAuthorsWithNoNull = " + allAuthorsWithNoNull);
         System.out.println("allAuthorsWithNoNull.size() = " + allAuthorsWithNoNull.size());
+
+
+        List<ArticlePOJO> allArticles = jp.getList("articles.findAll{it.source.id != null && it.author !=null }", ArticlePOJO.class);
+        allArticles.forEach(System.out::println);
 
     }
 }
