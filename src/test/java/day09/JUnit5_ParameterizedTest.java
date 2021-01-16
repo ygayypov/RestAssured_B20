@@ -47,5 +47,20 @@ public class JUnit5_ParameterizedTest {
 
     }
 
+    @ParameterizedTest
+    @CsvFileSource(resources = "/country_zipcode.csv", numLinesToSkip = 1)//we use numLinesToSkip = 1 to skip the header
+    public void testCountryZipCodeCombo (String csvCountry , int csvZip){
+
+        given()
+                .log().uri()
+                .baseUri("https://api.zippopotam.us")
+                .pathParam("country", csvCountry)
+                .pathParam ("zipcode", csvZip).
+        when()
+                .get("/{country}/{zipcode}").
+        then()
+                .statusCode(200);
+    }
+
 
 }
