@@ -62,6 +62,9 @@ public class HamcrestMatchersTest { // Java Hamcrest Matchers that can be combin
 
             //assert the str contains "IS COOL" in case insensitive manner
             assertThat(str, containsStringIgnoringCase("IS COOL"));
+
+
+
         }
 
 
