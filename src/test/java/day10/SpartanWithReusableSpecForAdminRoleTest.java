@@ -77,7 +77,12 @@ public class SpartanWithReusableSpecForAdminRoleTest {
         ResponseSpecification postResponseSpec = expect().logDetail(LogDetail.ALL)
                                                          .statusCode(is(201))
                                                          .contentType(ContentType.JSON)
-                                                         .body("success", is("A Spartan is born!"));
+                                                         .body("success", is("A Spartan is born!"))
+                                                         .body("data.id", notNullValue())
+                                                         .body("data.name", is(randomSpartanPayload.getName()))
+                                                         .body("data.gender", is(randomSpartanPayload.getGender()))
+                                                         .body("data.phone", is(randomSpartanPayload.getPhone()));
+
 
         given()
                 .spec(postRequestSpec).
